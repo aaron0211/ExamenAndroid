@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/aaron/Documents/NetBeansProjects/Android/src/java/controlador/Controller.java</file>
+            <file>file:/C:/Users/aaron/Documents/NetBeansProjects/Android/src/java/action/UsuarioAction.java</file>
+            <file>file:/C:/Users/aaron/Documents/NetBeansProjects/Android/src/java/model/Pelicula.java</file>
+            <file>file:/C:/Users/aaron/Documents/NetBeansProjects/Android/src/java/action/PeliculaAction.java</file>
+            <file>file:/C:/Users/aaron/Documents/NetBeansProjects/Android/src/java/DAO/PeliculaDAO.java</file>
+            <file>file:/C:/Users/aaron/Documents/NetBeansProjects/Android/src/java/utils/MotorMySQL.java</file>
+        </group>
+    </open-files>
+</project-private>
