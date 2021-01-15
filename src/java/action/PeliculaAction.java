@@ -28,6 +28,9 @@ public class PeliculaAction implements interfaces.Action{
             case "CINE":
                 cadDestino = findPelisCine(request, response);
                 break;
+            case "PELICULA":
+                cadDestino = findCinesPeli(request, response);
+                break;
         }
         return cadDestino;
     }
@@ -43,16 +46,21 @@ public class PeliculaAction implements interfaces.Action{
             String[] arrayFiltro = filtro.split("\\.");
             switch(arrayFiltro[0]){
                 case "TITULO":
-                    peli.setTitulo(arrayFiltro[1]);
+                    String titulo = request.getParameter("TITULO");
+                    peli.setTitulo(titulo);
                     lstPeliculas = peliculaDao.findAll(peli);
                     break;
                 case "SINOPSIS":
-                    peli.setSinopsis(arrayFiltro[1]);
+                    String sinopsis = request.getParameter("SINOPSIS");
+                    peli.setSinopsis(sinopsis);
                     lstPeliculas = peliculaDao.findAll(peli);
                     break;
                 case "GENERO":
-                    lstPeliculas = peliculaDao.obtenerGenero(arrayFiltro[1]);
+                    String genero = request.getParameter("GENERO");
+                    lstPeliculas = peliculaDao.obtenerGenero(genero);
                     break;
+                case "TOP10":
+                    lstPeliculas = peliculaDao.top10();
             }
         }else{
             lstPeliculas = peliculaDao.findAll(null);
@@ -69,5 +77,16 @@ public class PeliculaAction implements interfaces.Action{
         String cine = request.getParameter("CINE");
         lstPeliculas = peliculaDao.obtenerPeliCine(cine);
         return Pelicula.toArrayJSon(lstPeliculas);
+    }
+    
+    private String findCinesPeli(HttpServletRequest request,
+                                HttpServletResponse response){
+        PeliculaDAO peliculaDao = new PeliculaDAO();
+        ArrayList<Pelicula> lstCines = null;
+        String action = request.getParameter("ACTION");
+        String [] arrayAction = action.split("\\.");
+        String titulo = request.getParameter("TITULO");
+        lstCines = peliculaDao.obtenerCinePeli(titulo);
+        return Pelicula.toArrayJSon(lstCines);
     }
 }

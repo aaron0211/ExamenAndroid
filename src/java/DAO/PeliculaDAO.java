@@ -22,6 +22,10 @@ public class PeliculaDAO
     private final String SQL_PELI_CINE = "SELECT * FROM `pelicula` "
             + "INNER JOIN sesion on sesion.id_pelicula = pelicula.id_pelicula INNER JOIN sala on sala.id_sala = sesion.id_sala "
             + "INNER JOIN cine on cine.id_cine = sala.id_cine where 1=1 and cine.nombre=";
+    private final String SQL_TOP10 = "SELECT * from `pelicula` where 1=1 order by `puntuacion`/`votos` desc LIMIT 10";
+    private final String SQL_CINE_PELI = "SELECT * FROM `cine`"
+            + "INNER JOIN sala on sala.id_cine = cine.id_cine INNER JOIN sesion on sesion.id_sala = sala.id_sala "
+            + "INNER JOIN pelicula on pelicula.id_pelicula = sesion.id_pelicula where 1=1 and pelicula.titulo=";
     
     private MotorSQL motorSql;
 
@@ -254,7 +258,7 @@ public class PeliculaDAO
     
         public ArrayList<Pelicula> obtenerPeliCine(String cine){
         ArrayList<Pelicula> peliculas = new ArrayList<>();
-        String sql = SQL_PELI_CINE +"'"+ cine+"'";
+        String sql = SQL_PELI_CINE +"'"+ cine+"' order by sesion.fecha, sesion.hora";
         try {
             motorSql.connect();
             
@@ -286,6 +290,75 @@ public class PeliculaDAO
         }
         return peliculas;
     }
+        
+        public ArrayList<Pelicula> top10(){
+        ArrayList<Pelicula> peliculas = new ArrayList<>();
+        try {
+            motorSql.connect();
+            
+            ResultSet rs = motorSql.executeQuery(SQL_TOP10);
+            
+            while (rs.next()) {
+                Pelicula pelicula = new Pelicula();
+
+                pelicula.setId(rs.getInt(1));
+                pelicula.setTitulo(rs.getString(2));
+                pelicula.setPrecio(rs.getDouble(3));
+                pelicula.setTrailer(rs.getString(4));
+                pelicula.setSinopsis(rs.getString(5));
+                pelicula.setnVotos(rs.getInt(6));
+                pelicula.setsPuntuacion(rs.getInt(7));
+                pelicula.setFechaEstreno(rs.getString(8));
+                pelicula.setUrl(rs.getString(9));
+                pelicula.setidGenero(rs.getInt(10));
+
+                peliculas.add(pelicula);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            motorSql.disconnect();
+        }
+        return peliculas;
+    }
+        
+    public ArrayList<Pelicula> obtenerCinePeli(String titulo){
+        ArrayList<Pelicula> peliculas = new ArrayList<>();
+        String sql = SQL_CINE_PELI +"'"+ titulo+"'";
+        try {
+            motorSql.connect();
+            
+            ResultSet rs = motorSql.executeQuery(sql);
+            
+            while (rs.next()) {
+                Pelicula pelicula = new Pelicula();
+
+                pelicula.setCine(rs.getString(2));
+                pelicula.setLocalidad(rs.getString(3));
+                pelicula.setId(rs.getInt(12));
+                pelicula.setTitulo(rs.getString(13));
+                pelicula.setPrecio(rs.getDouble(14));
+                pelicula.setTrailer(rs.getString(15));
+                pelicula.setSinopsis(rs.getString(16));
+                pelicula.setnVotos(rs.getInt(17));
+                pelicula.setsPuntuacion(rs.getInt(18));
+                pelicula.setFechaEstreno(rs.getString(19));
+                pelicula.setUrl(rs.getString(20));
+                pelicula.setidGenero(rs.getInt(21));
+                pelicula.setFecha(rs.getString(11));
+                pelicula.setHora(rs.getString(10));
+
+                peliculas.add(pelicula);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            motorSql.disconnect();
+        }
+        return peliculas;
+    }    
 
     public static void main(String[] args) {
         /*PRUEBAS UNITARIAS - TEST*/

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 public class Pelicula {
-    private String titulo, trailer, sinopsis, fechaEstreno, url, fecha, hora;
+    private String titulo, trailer, sinopsis, fechaEstreno, url, fecha, hora, cine, localidad;
     private int idGenero, nVotos, sPuntuacion, id;
     private Double precio;
 
@@ -106,6 +106,32 @@ public class Pelicula {
     public void setHora(String hora) {
         this.hora = hora;
     }
+
+    public String getCine() {
+        return cine;
+    }
+
+    public void setCine(String cine) {
+        this.cine = cine;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public int getIdGenero() {
+        return idGenero;
+    }
+
+    public void setIdGenero(int idGenero) {
+        this.idGenero = idGenero;
+    }
+    
+    
     
     @Override
     public String toString() {
